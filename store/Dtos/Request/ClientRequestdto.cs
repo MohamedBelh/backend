@@ -1,6 +1,6 @@
-﻿namespace store.Models
+﻿namespace store.Dtos.Request
 {
-    public class Client
+    public class ClientRequestdto
     {
         public int Id { get; set; }
         public string Username { get; set; }

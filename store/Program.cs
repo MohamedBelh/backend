@@ -21,6 +21,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Register Service
 builder.Services.AddScoped<IProduitService, ProduitService>();
+builder.Services.AddScoped<IClientservice, ClientService>();
+
 
 
 

@@ -16,7 +16,6 @@ namespace store.Controllers
         private readonly IProduitService _produitService;
         private readonly IMapper _mapper;
 
-        public object ProductRequestDto { get; private set; }
 
         public ProductController(IProduitService produitService, IMapper mapper)
         {
@@ -27,7 +26,7 @@ namespace store.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductResponseDto>>> GetProudcts()
         {
-            var proudcts =  _mapper.Map<IEnumerable<ProductResponseDto>>(await _produitService.GetAllProduit());
+            var proudcts =  _mapper.Map<IEnumerable<ProductResponseDto>>(await _produitService.GetAllProducts());
             return Ok(proudcts);
         }
 
@@ -35,7 +34,7 @@ namespace store.Controllers
         public async Task<ActionResult<ProductResponseDto>> GetProudct(int id)
         {
 
-            var proudcts = _mapper.Map<ProductResponseDto>(await _produitService.GetProduit(id));
+            var proudcts = _mapper.Map<ProductResponseDto>(await _produitService.GetProductById(id));
                 if(proudcts==null)
                 {
                    return NotFound();
@@ -49,7 +48,7 @@ namespace store.Controllers
         public async Task<ActionResult> PostProduct(ProductRequestDto requestDto)
         {
             var proudct = _mapper.Map<Product>(requestDto);
-            await _produitService.AddProduit(proudct);
+            await _produitService.AddProduct(proudct);
             return Ok();
         }
 
@@ -57,7 +56,7 @@ namespace store.Controllers
         public async Task<ActionResult> DeleteProduct(int id)
         {
 
-            var proudcts = _mapper.Map<ProductResponseDto>(await _produitService.GetProduit(id));
+            var proudcts = _mapper.Map<ProductResponseDto>(await _produitService.GetProductById(id));
             if (proudcts == null)
             {
                 return NotFound();
@@ -66,20 +65,20 @@ namespace store.Controllers
 
 
 
-            await _produitService.DeleteProduit(id);
+            await _produitService.DeleteProduct(id);
           return Ok();
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateProduct(int id, ProductRequestDto requestDto)
         {
-            var proudcts = _mapper.Map<ProductResponseDto>(await _produitService.GetProduit(id));
+            var proudcts = _mapper.Map<ProductResponseDto>(await _produitService.GetProductById(id));
             if (proudcts == null)
             {
                 return NotFound();
             }
             var proudct = _mapper.Map<Product>(requestDto);
-            await _produitService.UpdateProduit(id, proudct);
+            await _produitService.UpdateProduct(id, proudct);
             return Ok();
         }
 

@@ -4,10 +4,10 @@ namespace store.Services.Contract
 {
     public interface IProduitService
     {
-        Task<Product> GetProduit(int id);
-        Task<IEnumerable<Product>> GetAllProduit();
-        Task DeleteProduit(int id);
-        Task AddProduit(Product produit);
-        Task UpdateProduit(int id,Product newproduit);
+        Task<Product?> GetProductById(int id);
+        Task<IEnumerable<Product>> GetAllProducts();
+        Task DeleteProduct(int id);
+        Task AddProduct(Product product);
+        Task UpdateProduct(int id, Product newProduct);
     }
 }

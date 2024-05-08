@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using store.Helper.Data;
 using store.Models;
@@ -13,40 +14,40 @@ namespace store.Services.Implementation
         {
             _context = context;
         }
-        public async Task AddProduit(Product produit)
+
+        public async Task AddProduct(Product product)
         {
-            await _context.AddAsync(produit);
+            await _context.AddAsync(product);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteProduit(int id)
+        public async Task DeleteProduct(int id)
         {
             var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
-              _context.Remove(product);
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetAllProduit()
+        public async Task<IEnumerable<Product>> GetAllProducts()
         {
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Product> GetProduit(int id)
+        public async Task<Product?> GetProductById(int id)
         {
             return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task UpdateProduit(int id, Product newproduit)
+        public async Task UpdateProduct(int id, Product newProduct)
         {
             var productToModife = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
-            productToModife.Name = newproduit.Name;
-            productToModife.QuantiteProduitStock = newproduit.QuantiteProduitStock;
-            productToModife.Image = newproduit.Image;
-            productToModife.Description = newproduit.Description;
+            productToModife.Name = newProduct.Name;
+            productToModife.QuantiteProduitStock = newProduct.QuantiteProduitStock;
+            productToModife.Image = newProduct.Image;
+            productToModife.Description = newProduct.Description;
 
-             _context.Products.Update(productToModife);
+            _context.Products.Update(productToModife);
             await _context.SaveChangesAsync();
-
         }
     }
 }
