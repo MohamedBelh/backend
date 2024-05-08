@@ -26,7 +26,7 @@ namespace store.Services.Implementation
         public async Task DesactivateClient(int id, bool cmd)
         {
             var client = await _context.Clients.FirstOrDefaultAsync(p => p.Id == id);
-            client.IsActive = false;
+            client.IsActive = cmd;
             await _context.SaveChangesAsync();
         }
 

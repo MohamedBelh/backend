@@ -26,7 +26,7 @@ namespace store.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClientResponsedto>>> GetClient()
+        public async Task<ActionResult<IEnumerable<ClientResponsedto>>> GetClients()
         {
             try
             {
@@ -58,47 +58,48 @@ namespace store.Controllers
             }
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> PostProduct(ProductRequestDto requestDto)
-        //{
-        //    try
-        //    {
-        //        var product = _mapper.Map<Product>(requestDto);
-        //        await _produitService.AddProduct(product);
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error creating product");
-        //    }
-        //}
+        [HttpPost]
+        public async Task<IActionResult> CreateClient(ClientRequestdto requestDto)
+        {
+            try
+            {
+                var client = _mapper.Map<Client>(requestDto);
+                await _clientService.AddClient(client);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error creating Client");
+            }
+        }
 
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteProduct(int id)
-        //{
-        //    try
-        //    {
-        //        await _produitService.DeleteProduct(id);
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting product");
-        //    }
-        //}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DescativateClient(int id)
+        {
+            try
+            {
+                await _clientService.DesactivateClient(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error Desactiving product");
+            }
+        }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> UpdateProduct(int id, Product newProduct)
-        //{
-        //    try
-        //    {
-        //        await _produitService.UpdateProduct(id, newProduct);
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error updating product");
-        //    }
-        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateClient(int id, ClientRequestdto newClient)
+        {
+            try
+            {
+                var client = _mapper.Map<Client>(newClient);
+                await _clientService.UpdateClient(id, client);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating Client");
+            }
+        }
     }
 }
